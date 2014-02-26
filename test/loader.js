@@ -6,12 +6,14 @@ for (var file in window.__karma__.files) {
     }
 }
 
-console.log(1);
-
 requirejs.config({
     baseUrl: '/base',
 
     packages: [
+        {
+            name: 'saber-lang',
+            location: './test/dep/saber-lang/0.2.0/src'
+        },
         {
             name: 'saber-uri',
             location: './src'

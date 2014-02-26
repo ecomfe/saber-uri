@@ -16,6 +16,9 @@
   "license": "BSD",
   "repository": "git://github.com/ecomfe/saber-uri.git",
   "bugs": "https://github.com/ecomfe/saber-uri/issues",
+  "dependencies": {
+    "saber-lang": "~0.2.0"
+  },
   "devDependencies": {
     "karma-script-launcher": "~0.1.0",
     "karma-chrome-launcher": "~0.1.2",
