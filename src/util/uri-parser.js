@@ -5,6 +5,13 @@
 
 define(function () {
 
+    /**
+     * 标准化URI数据
+     *
+     * @inner
+     * @param {Object} data
+     * @return {Object}
+     */
     function normalize(data) {
         var res = {};
         var keys = ['protocol'];
@@ -16,12 +23,26 @@ define(function () {
         return res;
     }
 
-    function parse(data) {
+    /**
+     * 解析字符串
+     *
+     * @inner
+     * @param {string} str
+     * @return {Object}
+     */
+    function parse(str) {
         return {
-            protocol: data
+            protocol: str
         };
     }
 
+    /**
+     * 解析URI
+     *
+     * @public
+     * @param {string|Object} data
+     * @return {Object}
+     */
     return function (data) {
 
         if (typeof data == 'string'

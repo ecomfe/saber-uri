@@ -7,14 +7,33 @@ define(function (require) {
 
     var parseURI = require('./util/uri-parser');
 
-    var handlerMap = {
-            protocol: require('./handler/protocol')
-        };
-
-    var handlerList = [
-            handlerMap.protocol
+    /**
+     * 属性序列
+     *
+     * @const
+     * @type {Array.<string>}
+     */
+    var PROPERTY_SEQUENCE = [
+            'protocol'
         ];
 
+    /**
+     * 属性构造函数
+     *
+     * @const
+     * @type {Object}
+     */
+    var PROPERTY_FACTORY = {
+            protocol: require('./property/Protocol')
+        };
+
+    /**
+     * 解析参数
+     *
+     * @inner
+     * @param {*}
+     * @return {Object}
+     */
     function parseArguments() {
         var i = 0;
         var res = {};
@@ -28,47 +47,69 @@ define(function (require) {
         return res;
     }
 
-    function findHandler(name) {
-        var res;
-        if (name && handlerMap[name]) {
-            res = handlerMap[name];
-        }
-        return res;
+    /**
+     * URI
+     *
+     * @contructor
+     */
+    function URI(data) {
+        data = parseURI(data);
+
+        var factory;
+        var me = this;
+        PROPERTY_SEQUENCE.forEach(function (name) {
+            factory = PROPERTY_FACTORY[name];
+            me[name] = new factory(data[name]);
+        });
     }
 
-    function URI(arg) {
-        this.data = parseURI(arg);
-    }
-
+    /**
+     * 设置属性
+     *
+     * @public
+     * @param {...string} name 属性名称
+     * @param {*} 属性值
+     */
     URI.prototype.set = function () {
         var arg = parseArguments(arguments);
-        var handler = findHandler(arg.name);
+        var handler = this[arg.name];
 
         if (handler) {
-            handler.set.apply(handler, [this].concat(arg.data));
+            handler.set.apply(handler, arg.data);
         }
         else {
-            this.data = parseURI(arg.data[0]);
+            var me = this;
+            var data = parseURI(arg.data[0]);
+            PROPERTY_SEQUENCE.forEach(function (name) {
+                me[name].set(data[name]);
+            });
         }
     };
 
+    /**
+     * 转化成字符串
+     *
+     * @public
+     * @param {...string} name 属性名称
+     * @return {string}
+     */
     URI.prototype.toString = function (name) {
-        var res;
-        var handler = findHandler(name);
+        var str;
+        var handler = this[name];
 
         if (handler) {
-            res = handler.toString(this);
+            str = handler.toString();
         }
         else {
-            res = [];
+            str = [];
             var me = this;
-            handlerList.forEach(function (handler) {
-                res.push(handler.toString(me));
+            PROPERTY_SEQUENCE.forEach(function (name) {
+                str.push(me[name].toString());
             });
-            res = res.join('');
+            str = str.join('');
         }
 
-        return res;
+        return str;
     };
 
     return URI;

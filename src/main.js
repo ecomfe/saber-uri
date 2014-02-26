@@ -6,16 +6,27 @@
 define(function (require) {
 
     var URI = require('./URI');
-   
+
     /**
-     * 生成URI对象
+     * 创建URI对象
      *
      * @public
      * @param {...string|Object} arg
      * @return {Object}
      */
-    return function (arg) {
-        return new URI(arg);
-    };
+    var exports = function (data) {
+            return new URI(data);
+        };
+   
 
+    /**
+     * 解析URI字符串
+     *
+     * @public
+     * @param {string} str
+     * @return {Object}
+     */
+    exports.parse = require('./util/uri-parser');
+
+    return exports;
 });
