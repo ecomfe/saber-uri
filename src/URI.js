@@ -14,7 +14,7 @@ define(function (require) {
      * @type {Array.<string>}
      */
     var COMPONENT_SEQUENCE = [
-            'protocol'
+            'scheme'
         ];
 
     /**
@@ -24,7 +24,7 @@ define(function (require) {
      * @type {Object}
      */
     var COMPONENT_FACTORY = {
-            protocol: require('./component/Protocol')
+            scheme: require('./component/Scheme')
         };
 
     /**

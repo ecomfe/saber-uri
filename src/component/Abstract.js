@@ -17,7 +17,9 @@ define(function () {
     };
 
     Abstract.prototype.toString = function () {
-        return this.data.toString();
+        return this.data 
+                ? this.data.toString()
+                : '';
     };
 
     return Abstract;
