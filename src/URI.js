@@ -13,7 +13,7 @@ define(function (require) {
      * @const
      * @type {Array.<string>}
      */
-    var PROPERTY_SEQUENCE = [
+    var COMPONENT_SEQUENCE = [
             'protocol'
         ];
 
@@ -23,8 +23,8 @@ define(function (require) {
      * @const
      * @type {Object}
      */
-    var PROPERTY_FACTORY = {
-            protocol: require('./property/Protocol')
+    var COMPONENT_FACTORY = {
+            protocol: require('./component/Protocol')
         };
 
     /**
@@ -57,8 +57,8 @@ define(function (require) {
 
         var factory;
         var me = this;
-        PROPERTY_SEQUENCE.forEach(function (name) {
-            factory = PROPERTY_FACTORY[name];
+        COMPONENT_SEQUENCE.forEach(function (name) {
+            factory = COMPONENT_FACTORY[name];
             me[name] = new factory(data[name]);
         });
     }
@@ -72,15 +72,15 @@ define(function (require) {
      */
     URI.prototype.set = function () {
         var arg = parseArguments(arguments);
-        var handler = this[arg.name];
+        var component = this[arg.name];
 
-        if (handler) {
-            handler.set.apply(handler, arg.data);
+        if (component) {
+            component.set.apply(component, arg.data);
         }
         else {
             var me = this;
             var data = parseURI(arg.data[0]);
-            PROPERTY_SEQUENCE.forEach(function (name) {
+            COMPONENT_SEQUENCE.forEach(function (name) {
                 me[name].set(data[name]);
             });
         }
@@ -95,15 +95,15 @@ define(function (require) {
      */
     URI.prototype.toString = function (name) {
         var str;
-        var handler = this[name];
+        var component = this[name];
 
-        if (handler) {
-            str = handler.toString();
+        if (component) {
+            str = component.toString();
         }
         else {
             str = [];
             var me = this;
-            PROPERTY_SEQUENCE.forEach(function (name) {
+            COMPONENT_SEQUENCE.forEach(function (name) {
                 str.push(me[name].toString());
             });
             str = str.join('');
