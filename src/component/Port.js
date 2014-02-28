@@ -17,6 +17,12 @@ define(function (require) {
             wss: '443'
         };
 
+    /**
+     * Prot
+     *
+     * @constructor
+     * @param {string} data
+     */
     function Port(data) {
         Abstract.call(this, data);
     }
@@ -24,7 +30,7 @@ define(function (require) {
     inherits(Port, Abstract);
 
     /**
-     * 判断是否相等
+     * 比较port
      *
      * @public
      * @param {string} port
@@ -36,6 +42,16 @@ define(function (require) {
         port = port || DEFAULT_PORT[scheme];
 
         return myPort == port;
+    };
+
+    /**
+     * 字符串化
+     *
+     * @public
+     * @return {string}
+     */
+    Port.prototype.toString = function (port, scheme) {
+        return this.data ? ':' + this.data : '';
     };
 
     return Port;

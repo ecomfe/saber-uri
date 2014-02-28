@@ -22,7 +22,7 @@ define(function () {
             item = item.split('=');
             key = item[0];
             value = item.length >= 2 
-                        ? decodeURIComponent(item[1]);
+                        ? decodeURIComponent(item[1])
                         : null;
 
             if (res[key]) {

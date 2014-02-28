@@ -25,7 +25,7 @@ define(function (require) {
      * @public
      * @return {string}
      */
-    Fragment.prorotype.toString = function () {
+    Fragment.prototype.toString = function () {
         return this.data ? '#' + this.data : '';
     };
 

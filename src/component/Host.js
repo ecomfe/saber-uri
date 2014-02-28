@@ -27,7 +27,9 @@ define(function (require) {
      * @param {string} host
      */
     Host.prototype.set = function (host) {
-        this.data = host.toLowerCase();
+        if (host) {
+            this.data = host.toLowerCase();
+        }
     };
 
     /**
@@ -39,6 +41,7 @@ define(function (require) {
      * @return {boolean}
      */
     Host.prototype.equal = function (host) {
+        host = host || '';
         return this.data == host.toLowerCase();
     };
 

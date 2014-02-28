@@ -8,23 +8,20 @@ define(function (require) {
     var parseURI = require('./util/uri-parser');
 
     /**
-     * 属性序列
-     *
-     * @const
-     * @type {Array.<string>}
-     */
-    var COMPONENT_SEQUENCE = [
-            'scheme'
-        ];
-
-    /**
      * 属性构造函数
      *
      * @const
      * @type {Object}
      */
-    var COMPONENT_FACTORY = {
-            scheme: require('./component/Scheme')
+    var COMPONENTS = {
+            scheme: require('./component/Scheme'),
+            username: require('./component/UserName'),
+            password: require('./component/Password'),
+            host: require('./component/Host'),
+            port: require('./component/Port'),
+            path: require('./component/Path'),
+            query: require('./component/Query'),
+            fragment: require('./component/Fragment')
         };
 
     /**
@@ -57,10 +54,33 @@ define(function (require) {
 
         var factory;
         var me = this;
-        COMPONENT_SEQUENCE.forEach(function (name) {
-            factory = COMPONENT_FACTORY[name];
+        Object.keys(COMPONENTS).forEach(function (name) {
+            factory = COMPONENTS[name];
             me[name] = new factory(data[name]);
         });
+    }
+
+    /**
+     * 字符串化authority
+     *
+     * @inner
+     * @return {string}
+     */
+    function stringifyAuthority(uri) {
+        var res = [];
+        var username = uri.username.toString();
+        var password = uri.password.toString();
+        var host = uri.host.toString();
+        var port = uri.port.toString();
+
+        if (username || password) {
+            res.push(username + ':' + password + '@');
+        }
+
+        res.push(host);
+        res.push(port);
+
+        return res.join('');
     }
 
     /**
@@ -80,9 +100,25 @@ define(function (require) {
         else {
             var me = this;
             var data = parseURI(arg.data[0]);
-            COMPONENT_SEQUENCE.forEach(function (name) {
+            Object.keys(COMPONENTS).forEach(function (name) {
                 me[name].set(data[name]);
             });
+        }
+    };
+
+    /**
+     * 获取属性
+     *
+     * @public
+     * @param {string} name
+     * @return {Object}
+     */
+    URI.prototype.get = function () {
+        var arg = parseArguments(arguments);
+        var component = this[arg.name];
+
+        if (component) {
+            return component.get.apply(component, arg.data);
         }
     };
 
@@ -102,14 +138,42 @@ define(function (require) {
         }
         else {
             str = [];
-            var me = this;
-            COMPONENT_SEQUENCE.forEach(function (name) {
-                str.push(me[name].toString());
-            });
+            var scheme = this.scheme.toString();
+            if (scheme) {
+                str.push(scheme + ':');
+            }
+            var authority = stringifyAuthority(this);
+            if (scheme && authority) {
+                str.push('//');
+            }
+            str.push(authority);
+            str.push(this.path.toString());
+            str.push(this.query.toString());
+            str.push(this.fragment.toString());
             str = str.join('');
         }
 
         return str;
+    };
+
+    /**
+     * 比较uri
+     *
+     * @public
+     * @param {string|Object} uri
+     * @return {boolean}
+     */
+    URI.prototype.equal = function (uri) {
+        uri = parseURI(uri);
+
+        var res = true;
+        var names = Object.keys(COMPONENTS);
+
+        for (var i = 0, name; res && (name = names[i]); i++) {
+            res = this[name].equal(uri[name].get());
+        }
+
+        return res;
     };
 
     return URI;
