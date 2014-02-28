@@ -67,7 +67,7 @@ define(function (require) {
      * 设置属性
      *
      * @public
-     * @param {...string} name 属性名称
+     * @param {string=} name 属性名称
      * @param {*} 属性值
      */
     URI.prototype.set = function () {
@@ -90,7 +90,7 @@ define(function (require) {
      * 转化成字符串
      *
      * @public
-     * @param {...string} name 属性名称
+     * @param {string=} name 属性名称
      * @return {string}
      */
     URI.prototype.toString = function (name) {
