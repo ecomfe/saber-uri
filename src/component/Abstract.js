@@ -5,7 +5,7 @@
 define(function () {
 
     function Abstract(data) {
-        this.data = data;
+        this.set(data);
     }
 
     Abstract.prototype.get = function () {
@@ -17,7 +17,7 @@ define(function () {
     };
 
     Abstract.prototype.add = function (data) {
-        this.data = data;
+        this.set(data);
     };
 
     Abstract.prototype.remove = function () {
