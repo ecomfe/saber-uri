@@ -24,7 +24,12 @@ define(function () {
             }
 
             item.forEach(function (value) {
-                str.push(key + '=' + encodeURIComponent(value || ''));
+                if (value === null) {
+                    str.push(key);
+                }
+                else {
+                    str.push(key + '=' + encodeURIComponent(value || ''));
+                }
             });
         });
 
