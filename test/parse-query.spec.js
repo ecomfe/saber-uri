@@ -57,6 +57,22 @@ define(function (require) {
             expect(query.age).toBe('10');
         });
 
+        it('with encode string', function () {
+            var query = 'company='
+                        + encodeURIComponent('百度')
+                        + '&company='
+                        + encodeURIComponent('淘宝')
+                        + '&address='
+                        + encodeURIComponent('北京');
+
+            query = parse(query);
+            expect(Object.keys(query).length).toBe(2);
+            expect(Array.isArray(query.company)).toBeTruthy();
+            expect(query.company[0]).toEqual('百度');
+            expect(query.company[1]).toEqual('淘宝');
+            expect(query.address).toEqual('北京');
+        });
+
     });
 
 });
