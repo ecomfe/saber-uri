@@ -9,7 +9,7 @@ define(function () {
      * 提供基础方法
      *
      * @constructor
-     * @param {Object} data
+     * @param {string} data
      */
     function Abstract(data) {
         this.set(data);
@@ -19,7 +19,7 @@ define(function () {
      * 获取数据
      *
      * @public
-     * @return {Object}
+     * @return {string}
      */
     Abstract.prototype.get = function () {
         return this.data;
@@ -29,17 +29,17 @@ define(function () {
      * 设置数据
      *
      * @public
-     * @param {Object} data
+     * @param {string} data
      */
     Abstract.prototype.set = function (data) {
-        this.data = data;
+        this.data = data || '';
     };
 
     /**
      * 添加数据
      *
      * @public
-     * @param {Object} data
+     * @param {string} data
      */
     Abstract.prototype.add = function (data) {
         this.set(data);
@@ -60,9 +60,7 @@ define(function () {
      * @public
      */
     Abstract.prototype.toString = function () {
-        return this.data 
-                ? this.data.toString()
-                : '';
+        return this.data.toString();
     };
 
     /**

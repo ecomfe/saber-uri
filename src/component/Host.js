@@ -27,9 +27,8 @@ define(function (require) {
      * @param {string} host
      */
     Host.prototype.set = function (host) {
-        if (host) {
-            this.data = host.toLowerCase();
-        }
+        host = host || '';
+        this.data = host.toLowerCase();
     };
 
     /**

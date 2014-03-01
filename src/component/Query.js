@@ -76,7 +76,7 @@ define(function (require) {
      */
     function compareObject(a, b) {
 
-        if (!isObject(a) || isObject(b)) {
+        if (!isObject(a) || !isObject(b)) {
             return false;
         }
 

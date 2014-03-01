@@ -27,9 +27,8 @@ define(function (require) {
      * @param {string} scheme
      */
     Scheme.prototype.set = function (scheme) {
-        if (scheme) {
-            this.data = scheme.toLowerCase();
-        }
+        scheme = scheme || '';
+        this.data = scheme.toLowerCase();
     };
 
     /**

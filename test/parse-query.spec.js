@@ -13,7 +13,6 @@ define(function (require) {
             var query = '';
 
             query = parse(query);
-            console.log(query);
             expect(Object.keys(query).length).toBe(0);
         });
 

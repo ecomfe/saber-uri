@@ -111,7 +111,7 @@ define(function (require) {
      *
      * @public
      * @param {string} name
-     * @return {Object}
+     * @return {*}
      */
     URI.prototype.get = function () {
         var arg = parseArguments(arguments);
@@ -160,17 +160,24 @@ define(function (require) {
      * 比较uri
      *
      * @public
-     * @param {string|Object} uri
+     * @param {string|URI} uri
      * @return {boolean}
      */
     URI.prototype.equal = function (uri) {
-        uri = parseURI(uri);
+        if (!(uri instanceof URI)) {
+            uri = new URI(uri);
+        }
 
         var res = true;
         var names = Object.keys(COMPONENTS);
 
         for (var i = 0, name; res && (name = names[i]); i++) {
-            res = this[name].equal(uri[name].get());
+            if (name == 'port') {
+                res = this[name].equal(uri[name].get(), this.scheme.get());
+            }
+            else {
+                res = this[name].equal(uri[name].get(), this.scheme.get());
+            }
         }
 
         return res;

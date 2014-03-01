@@ -20,6 +20,14 @@ define(function (require) {
             
         });
 
+        describe('equal', function () {
+            it('with string', function () {
+                var url = uri('www.baidu.com');
+
+                expect(url.equal('www.baidu.com')).toBeTruthy();
+            });
+        });
+
     });
 
 });
