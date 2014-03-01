@@ -19,6 +19,10 @@ define(function () {
         var key;
         var value;
         query.forEach(function (item) {
+            if (!item) {
+                return;
+            }
+
             item = item.split('=');
             key = item[0];
             value = item.length >= 2 
