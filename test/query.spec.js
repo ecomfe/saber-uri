@@ -93,6 +93,39 @@ define(function (require) {
 
         });
 
+        describe('equal', function () {
+
+            it('should compare with string', function () {
+                var query = new Query('company=baidu&company=taobao&age=10');
+                expect(query.equal('company=baidu&company=taobao&age=10')).toBeTruthy();
+                expect(query.equal('company=baidu&age=10')).toBeFalsy();
+            });
+
+            it('should compare with object', function () {
+                var query = new Query('company=baidu&company=taobao&age=10');
+                expect(query.equal({company: ['baidu', 'taobao'], age: 10})).toBeTruthy();
+                expect(query.equal({company: ['baidu'], age: 10})).toBeFalsy();
+            });
+
+        });
+
+        describe('remove', function () {
+
+            it('should delete item by key', function () {
+                var query = new Query('company=baidu&company=taobao&age=10');
+                query.remove('company');
+                expect(Object.keys(query.data).length).toBe(1);
+                expect(query.data.age).toEqual('10');
+            });
+
+            it('should delete all items without arguments', function () {
+                var query = new Query('company=baidu&company=taobao&age=10');
+                query.remove();
+                expect(query.data).toEqual({});
+            });
+
+        });
+
     });
 
 });
