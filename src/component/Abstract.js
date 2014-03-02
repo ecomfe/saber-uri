@@ -51,7 +51,7 @@ define(function () {
      * @public
      */
     Abstract.prototype.remove = function () {
-        delete this.data;
+        this.data = '';
     };
 
     /**
