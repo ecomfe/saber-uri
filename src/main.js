@@ -28,5 +28,15 @@ define(function (require) {
      */
     exports.parse = require('./util/uri-parser');
 
+    /**
+     * resolve path
+     *
+     * @public
+     * @param {string} from
+     * @param {string=} to
+     * @return {string}
+     */
+    exports.resolve = require('./component/Path').resolve;
+
     return exports;
 });
