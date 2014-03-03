@@ -107,6 +107,11 @@ define(function (require) {
                 expect(query.equal({company: ['baidu'], age: 10})).toBeFalsy();
             });
 
+            it('should sort array before compare', function () {
+                var query = new Query('company=baidu&company=taobao&age=10');
+                expect(query.equal({company: ['taobao', 'baidu'], age: 10})).toBeTruthy();
+            });
+
         });
 
         describe('remove', function () {

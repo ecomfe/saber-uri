@@ -52,15 +52,14 @@ define(function (require) {
             return false;
         }
 
+        a = a.slice(0);
+        a = a.slice(0);
+        a.sort();
+        b.sort();
+
         var res = true;
         for (var i = 0, item, len = a.length; res && i < len; i++) {
-            item = a[i];
-            if (isObject(item)) {
-                res = compareObject(item, b[i]);
-            }
-            else {
-                res = item == b[i];
-            }
+            res = a[i] == b[i];
         }
 
         return res;
