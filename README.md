@@ -15,7 +15,7 @@
 
 ## Usage
 
-```javasscript
+```javascript
 var uri = require('saber-uri');
 
 // 构建URI对象
