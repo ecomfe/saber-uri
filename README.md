@@ -1,4 +1,4 @@
-# saber-uri
+# saber-uri [![Build Status](https://travis-ci.org/ecomfe/saber-uri.png)](https://travis-ci.org/ecomfe/saber-uri)
 
 `URI`处理
 
