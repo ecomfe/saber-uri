@@ -8,6 +8,22 @@ define(function (require) {
     var Abstract = require('./Abstract');
 
     /**
+     * normalize path
+     * see rfc3986 #6.2.3. Scheme-Based Normalization
+     *
+     * @inner
+     * @param {string}
+     * @return {string}
+     */
+    function normalize(path) {
+        if (path.charAt(path.length - 1) == '/') {
+            path = path.substring(0, path.length - 1);
+        }
+
+        return path;
+    }
+
+    /**
      * 获取目录
      *
      * @inner
@@ -101,7 +117,7 @@ define(function (require) {
      * @param {string} path
      */
     Path.prototype.set = function (path) {
-        this.data = Path.resolve(path || '/');
+        this.data = Path.resolve(path || '');
     };
 
     /**
@@ -112,20 +128,10 @@ define(function (require) {
      * @return {boolean}
      */
     Path.prototype.equal = function (path) {
-        var myPath = this.data;
-        path = Path.resolve(path || '/');
+        var myPath = normalize(this.data);
+        path = normalize(Path.resolve(path || ''));
 
         return myPath == path;
-    };
-
-    /**
-     * 字符串化
-     *
-     * @public
-     * @return {string}
-     */
-    Path.prototype.toString = function () {
-        return this.data == '/' ? '' : this.data;
     };
 
     /**

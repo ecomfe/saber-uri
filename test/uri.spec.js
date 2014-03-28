@@ -17,8 +17,46 @@ define(function (require) {
 
                 str = 'http://www.baidu.com/search?wd=hello';
                 expect(uri(str).toString()).toEqual(str);
+
+                str = 'www.baidu.com/?search=wd';
+                expect(uri(str).toString()).toEqual(str);
             });
+
+        });
+
+        describe('.get', function () {
+            it('should return component data', function () {
+                var url = uri('www.baidu.com/search');
+
+                expect(url.get('scheme')).toBe('');
+                expect(url.get('username')).toBe('');
+                expect(url.get('password')).toBe('');
+                expect(url.get('host')).toEqual('www.baidu.com');
+                expect(url.get('port')).toBe('');
+                expect(url.get('path')).toEqual('/search');
+                expect(url.get('query')).toEqual({});
+                expect(url.get('fragment')).toBe('');
+            });
+
+            it('should return query data', function () {
+                var url = uri('www.baidu.com/search?wd=hello&page=10');
+
+                expect(url.get('query', 'wd')).toEqual('hello');
+                expect(url.get('query', 'page')).toEqual('10');
+            });
+        });
+
+        describe('.set', function () {
+            it('without argument should pass', function () {
+                var url = uri('www.baidu.com');
+                var str = 'www.google.com/?query=wd';
             
+                url.set(str);
+
+                expect(url.toString()).toEqual(str);
+                expect(url.path.toString()).toEqual('/');
+                expect(url.query.toString()).toEqual('?query=wd');
+            });
         });
 
         describe('equal', function () {
@@ -54,8 +92,9 @@ define(function (require) {
                 expect(uri('https://www.baidu.com').equal('https://www.baidu.com:443')).toBeTruthy();
             });
 
-            it('should case empty path', function () {
+            it('should normalize path', function () {
                 expect(uri('https://www.baidu.com').equal('https://www.baidu.com/')).toBeTruthy();
+                expect(uri('https://www.baidu.com/abc/?www').equal('https://www.baidu.com/abc?www')).toBeTruthy();
             });
         });
 

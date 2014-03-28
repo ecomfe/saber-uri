@@ -25,26 +25,6 @@ define(function (require) {
         };
 
     /**
-     * 解析参数
-     *
-     * @inner
-     * @param {*}
-     * @return {Object}
-     */
-    function parseArguments() {
-        var i = 0;
-        var res = {};
-
-        if (arguments.length > 1) {
-            res.name = arguments[i++];
-        }
-
-        res.data = Array.prototype.slice.call(arguments, i);
-
-        return res;
-    }
-
-    /**
      * URI
      *
      * @contructor
@@ -91,9 +71,14 @@ define(function (require) {
      * @param {*} 属性值
      */
     URI.prototype.set = function () {
-        var arg = parseArguments(arguments);
-        var component = this[arg.name];
+        var i = 0;
+        var arg = {};
+        if (arguments.length > 1) {
+            arg.name = arguments[i++];
+        }
+        arg.data = Array.prototype.slice.call(arguments, i);
 
+        var component = this[arg.name];
         if (component) {
             component.set.apply(component, arg.data);
         }
@@ -114,7 +99,10 @@ define(function (require) {
      * @return {*}
      */
     URI.prototype.get = function () {
-        var arg = parseArguments(arguments);
+        var arg = {
+                name: arguments[0],
+                data: Array.prototype.slice.call(arguments, 1)
+            };
         var component = this[arg.name];
 
         if (component) {

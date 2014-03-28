@@ -30,9 +30,9 @@ define(function (require) {
                 expect(path.data).toEqual('abc/dd');
             });
 
-            it('without argument will be \'/\'', function () {
+            it('without argument will be empty', function () {
                 var path = new Path();
-                expect(path.data).toEqual('/');
+                expect(path.data).toEqual('');
             });
 
         });
@@ -51,10 +51,10 @@ define(function (require) {
                 expect(path.data).toEqual('abc');
             });
 
-            it('without argument will be \'/\'', function () {
+            it('without argument will be empty', function () {
                 var path = new Path('abc');
                 path.set();
-                expect(path.data).toEqual('/');
+                expect(path.data).toEqual('');
             });
 
         });
@@ -78,6 +78,11 @@ define(function (require) {
                 expect(path.equal('')).toBeTruthy();
             });
 
+            it('should normalize path', function () {
+                var path = new Path('/abc/edf');
+                expect(path.equal('/abc/edf/')).toBeTruthy();
+            });
+
         });
 
         describe('toString', function () {
@@ -85,11 +90,6 @@ define(function (require) {
             it('should return the right string', function () {
                 var path = new Path('../ab/cc');
                 expect(path.toString()).toEqual('../ab/cc');
-            });
-
-            it('should return empty when it\'s \'/\'', function () {
-                var path = new Path('/');
-                expect(path.toString()).toEqual('');
             });
 
         });
