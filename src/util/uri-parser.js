@@ -151,7 +151,7 @@ define(function (require) {
                 str = str.split('/');
                 extend(res, parseAuthority(str.shift()));
                 if (str.length > 0) {
-                    res.path = '/' + str.join('');
+                    res.path = '/' + str.join('/');
                 }
             }
             return res;
@@ -173,7 +173,7 @@ define(function (require) {
         str = str.split('/');
         res.host = str.shift();
         if (str.length > 0) {
-            res.path = '/' + str.join('');
+            res.path = '/' + str.join('/');
         }
 
         return res;

@@ -26,7 +26,7 @@ define(function (require) {
             });
 
             it('contains scheme, host, port, and path', function () {
-                var str = 'https://www.baidu.com:8080/search';
+                var str = 'https://www.baidu.com:8080/search/abc/wdf';
                 var uri = parseURI(str);
 
                 expect(uri.scheme).toEqual('https');
@@ -34,7 +34,7 @@ define(function (require) {
                 expect(uri.password).toBeUndefined();
                 expect(uri.host).toEqual('www.baidu.com');
                 expect(uri.port).toEqual('8080');
-                expect(uri.path).toEqual('/search');
+                expect(uri.path).toEqual('/search/abc/wdf');
                 expect(uri.query).toBeUndefined();
                 expect(uri.fragment).toBeUndefined();
             });
@@ -66,6 +66,20 @@ define(function (require) {
                 expect(uri.fragment).toBeUndefined();
             });
 
+            it('contains host and path', function () {
+                var str = 'www.baidu.com/abc/efg?q=123';
+                var uri = parseURI(str);
+
+                expect(uri.scheme).toBeUndefined();
+                expect(uri.username).toBeUndefined();
+                expect(uri.password).toBeUndefined();
+                expect(uri.host).toEqual('www.baidu.com');
+                expect(uri.port).toBeUndefined();
+                expect(uri.path).toEqual('/abc/efg');
+                expect(uri.query).toEqual('q=123');
+                expect(uri.fragment).toBeUndefined();
+            });
+
             it('contains host, port, path, query and fragment', function () {
                 var str = 'www.baidu.com:8080/search?wd=w#notarget';
                 var uri = parseURI(str);
@@ -94,8 +108,8 @@ define(function (require) {
                 expect(uri.fragment).toBeUndefined();
             });
             
-            it('contains scheme and path', function () {
-                var str = 'nun:www@www.baidu.com/search';
+            it('contains scheme and path, part 2', function () {
+                var str = 'nun:www@www.baidu.com/search/abc/ddd';
                 var uri = parseURI(str);
 
                 expect(uri.scheme).toEqual('nun');
@@ -103,7 +117,7 @@ define(function (require) {
                 expect(uri.password).toBeUndefined();
                 expect(uri.host).toBeUndefined();
                 expect(uri.port).toBeUndefined();
-                expect(uri.path).toEqual('www@www.baidu.com/search');
+                expect(uri.path).toEqual('www@www.baidu.com/search/abc/ddd');
                 expect(uri.query).toBeUndefined();
                 expect(uri.fragment).toBeUndefined();
             });
