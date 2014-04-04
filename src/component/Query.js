@@ -105,7 +105,29 @@ define(function (require) {
         }
 
         return res;
+    }
 
+    function addQueryItem(key, value, items) {
+        var item = items[key];
+
+        if (item) {
+            if (!Array.isArray(item)) {
+                item = [item];
+            }
+            if (Array.isArray(value)) {
+                item = item.concat(value);
+            }
+            else {
+                item.push(value);
+            }
+        }
+        else {
+            item = value;
+        }
+
+        items[key] = item;
+
+        return items;
     }
 
     /**
@@ -190,23 +212,22 @@ define(function (require) {
      * 添加query item
      * 
      * @public
-     * @param {string} key
-     * @param {string} value
+     * @param {string|Object} key
+     * @param {string=} value
      */
     Query.prototype.add = function (key, value) {
-        var item = this.data[key];
+        var data = this.data;
 
-        if (item) {
-            if (!Array.isArray(item)) {
-                item = [item];
-            }
-            item.push(value);
+        if (isObject(key)) {
+            Object.keys(key).forEach(function (k) {
+                addQueryItem(k, key[k], data);
+            });
         }
         else {
-            item = value;
+            addQueryItem(key, value, data);
         }
 
-        this.data[key] = item;
+        this.data = data;
     };
 
     /**

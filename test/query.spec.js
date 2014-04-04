@@ -95,6 +95,21 @@ define(function (require) {
                 expect(query.data.company[1]).toEqual('taobao');
             });
 
+            it('should add object', function () {
+                var query = new Query('company=baidu&t=10&t=20');
+
+                query.add({
+                    company: 'taobao',
+                    t: ['30', '40'],
+                    name: 'treelite'
+                });
+
+                expect(Object.keys(query.data).length).toBe(3);
+                expect(query.data.company).toEqual(['baidu', 'taobao']);
+                expect(query.data.t).toEqual(['10', '20', '30', '40']);
+                expect(query.data.name).toEqual('treelite');
+            })
+
         });
 
         describe('equal', function () {
