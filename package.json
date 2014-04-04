@@ -16,7 +16,7 @@
   "repository": "git://github.com/ecomfe/saber-uri.git",
   "bugs": "https://github.com/ecomfe/saber-uri/issues",
   "dependencies": {
-    "saber-lang": "~0.2.0"
+    "saber-lang": "~0.3.0"
   },
   "devDependencies": {
     "phantomjs": "~1.9"
