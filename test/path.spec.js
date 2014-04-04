@@ -17,8 +17,9 @@ define(function (require) {
             });
 
             it('should handle two arguments', function () {
-                expect(Path.resolve('abc', '../abde')).toEqual('abde');
+                expect(Path.resolve('abc', '../abde')).toEqual('../abde');
                 expect(Path.resolve('/abc/../abd', '../../abd/ccc')).toEqual('/abd/ccc');
+                expect(Path.resolve('/abc/abd', '../ccc')).toEqual('/ccc');
             });
 
         });
@@ -35,6 +36,16 @@ define(function (require) {
                 expect(path.data).toEqual('');
             });
 
+            it('with base path string', function () {
+                var path = new Path('../abc', 'foo/bar/hello');
+                expect(path.data).toEqual('foo/abc');
+            });
+
+            it('with base Path object', function () {
+                var base = new Path('foo/bar/hello');
+                var path = new Path('../abc', base);
+                expect(path.data).toEqual('foo/abc');
+            });
         });
 
         describe('set', function () {
@@ -55,6 +66,22 @@ define(function (require) {
                 var path = new Path('abc');
                 path.set();
                 expect(path.data).toEqual('');
+            });
+
+            it('should resolved with base path string', function () {
+                var path = new Path();
+
+                path.set('../abc', 'foo/bar/hello');
+                expect(path.data).toEqual('foo/abc');
+            });
+
+            it('should resolved with base Path object', function () {
+                var path = new Path();
+                var base = new Path('foo/bar/hello');
+
+
+                path.set('../abc', base);
+                expect(path.data).toEqual('foo/abc');
             });
 
         });

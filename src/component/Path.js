@@ -74,9 +74,10 @@ define(function (require) {
      *
      * @constructor
      * @param {string} data
+     * @param {...string|Path} base
      */
-    function Path(data) {
-        Abstract.call(this, data);
+    function Path(data, base) {
+        Abstract.call(this, data, base);
     }
 
     /**
@@ -94,6 +95,9 @@ define(function (require) {
         }
 
         var isAbsolute = from.charAt(0) == '/';
+        if (to) {
+            from = dirname(from);
+        }
         var path = from.split('/')
                     .concat(to.split('/'))
                     .filter(
@@ -115,9 +119,18 @@ define(function (require) {
      *
      * @public
      * @param {string} path
+     * @param {...string|Path} base
      */
-    Path.prototype.set = function (path) {
-        this.data = Path.resolve(path || '');
+    Path.prototype.set = function (path, base) {
+        if (base instanceof Path) {
+            base = base.get();
+        }
+
+        var args = [path || ''];
+        if (base) {
+            args.unshift(base);
+        }
+        this.data = Path.resolve.apply(Path, args);
     };
 
     /**
@@ -147,7 +160,7 @@ define(function (require) {
      * @param {string} path
      */
     Path.prototype.resolve = function (path) {
-        this.data = Path.resolve(dirname(this.data), path);
+        this.data = Path.resolve(this.data, path);
     };
 
     return Path;

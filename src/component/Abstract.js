@@ -11,8 +11,9 @@ define(function () {
      * @constructor
      * @param {string} data
      */
-    function Abstract(data) {
-        this.set(data);
+    function Abstract() {
+        var args = Array.prototype.slice.call(arguments);
+        this.set.apply(this, args);
     }
 
     /**
