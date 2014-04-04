@@ -74,7 +74,7 @@ define(function (require) {
      *
      * @constructor
      * @param {string} data
-     * @param {...string|Path} base
+     * @param {string|Path=} base
      */
     function Path(data, base) {
         Abstract.call(this, data, base);
@@ -119,7 +119,7 @@ define(function (require) {
      *
      * @public
      * @param {string} path
-     * @param {...string|Path} base
+     * @param {string|Path=} base
      */
     Path.prototype.set = function (path, base) {
         if (base instanceof Path) {
@@ -157,10 +157,23 @@ define(function (require) {
      * 应用路径
      *
      * @public
-     * @param {string} path
+     * @param {string|Path} path
+     * @param {boolean} from
      */
-    Path.prototype.resolve = function (path) {
-        this.data = Path.resolve(this.data, path);
+    Path.prototype.resolve = function (path, from) {
+        if (path instanceof Path) {
+            path = path.get();
+        }
+
+        var args = [this.data];
+        if (from) {
+            args.unshift(path);
+        }
+        else {
+            args.push(path);
+        }
+
+        this.data = Path.resolve.apply(Path, args);
     };
 
     return Path;

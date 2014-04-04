@@ -134,10 +134,25 @@ define(function (require) {
 
         describe('resolve', function () {
 
-            it('should use dirname to resolve path', function () {
+            it('should resolved string', function () {
                 var path = new Path('abc/foo/bar.html');
                 path.resolve('../hello.html');
                 expect(path.data).toEqual('abc/hello.html');
+            });
+
+            it('should resolved Path object', function () {
+                var path = new Path('abc/foo/bar');
+                var path2 = new Path('../hello');
+
+                path.resolve(path2);
+                expect(path.data).toEqual('abc/hello');
+            });
+
+            it('should resolved from path', function () {
+                var path = new Path('../hello');
+
+                path.resolve('abc/foo/bar', true);
+                expect(path.data).toEqual('abc/hello');
             });
 
         });
