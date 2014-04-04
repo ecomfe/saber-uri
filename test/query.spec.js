@@ -65,11 +65,15 @@ define(function (require) {
                 expect(query.toString()).toEqual('');
             });
 
-            it('should add prefix when had data', function () {
+            it('should add defualt prefix when had data', function () {
                 var query = new Query('name=treelite&age=10');
                 expect(query.toString()).toEqual('?name=treelite&age=10');
             });
 
+            it('should add custom prefix when had data', function () {
+                var query = new Query('name=treelite&age=10');
+                expect(query.toString('~')).toEqual('~name=treelite&age=10');
+            });
         });
 
         describe('add', function () {
@@ -110,6 +114,18 @@ define(function (require) {
             it('should sort array before compare', function () {
                 var query = new Query('company=baidu&company=taobao&age=10');
                 expect(query.equal({company: ['taobao', 'baidu'], age: 10})).toBeTruthy();
+            });
+
+            it('should compare width Query Object', function () {
+                var queryStr = 'company=baidu&company=taobao&age=10';
+                var q1 = new Query(queryStr);
+                var q2 = new Query(queryStr);
+                var q3 = new Query();
+
+                expect(q1.equal(q2)).toBeTruthy();
+                expect(q2.equal(q1)).toBeTruthy();
+                expect(q1.equal(q3)).toBeFalsy();
+                expect(q3.equal(q1)).toBeFalsy();
             });
 
         });

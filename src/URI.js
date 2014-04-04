@@ -164,7 +164,7 @@ define(function (require) {
                 res = this[name].equal(uri[name].get(), this.scheme.get());
             }
             else {
-                res = this[name].equal(uri[name].get(), this.scheme.get());
+                res = this[name].equal(uri[name]);
             }
         }
 

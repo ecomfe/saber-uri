@@ -7,6 +7,8 @@ define(function (require) {
     var inherits = require('saber-lang/inherits');
     var Abstract = require('./Abstract');
 
+    var DEFAULT_PREFIX = '#';
+
     /**
      * Fragment
      *
@@ -23,10 +25,12 @@ define(function (require) {
      * 字符串化
      *
      * @public
+     * @param {string} prefix
      * @return {string}
      */
-    Fragment.prototype.toString = function () {
-        return this.data ? '#' + this.data : '';
+    Fragment.prototype.toString = function (prefix) {
+        prefix = prefix || DEFAULT_PREFIX;
+        return this.data ? prefix + this.data : '';
     };
 
     return Fragment;

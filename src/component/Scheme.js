@@ -36,11 +36,16 @@ define(function (require) {
      * 忽略大小写
      *
      * @public
-     * @param {string} scheme
+     * @param {string|Scheme} scheme
      * @return {boolean}
      */
     Scheme.prototype.equal = function (scheme) {
-        scheme = scheme || '';
+        if (scheme instanceof Scheme) {
+            scheme = scheme.get();
+        }
+        else {
+            scheme = scheme || '';
+        }
         return this.data == scheme.toLowerCase();
     };
 

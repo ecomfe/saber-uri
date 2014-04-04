@@ -33,12 +33,15 @@ define(function (require) {
      * 比较port
      *
      * @public
-     * @param {string} port
+     * @param {string|Port} port
      * @param {string=} scheme
      * @return {boolean}
      */
     Port.prototype.equal = function (port, scheme) {
         var myPort = this.data || DEFAULT_PORT[scheme];
+        if (port instanceof Port) {
+            port = port.get();
+        }
         port = port || DEFAULT_PORT[scheme];
 
         return myPort == port;

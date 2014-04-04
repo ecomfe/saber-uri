@@ -36,11 +36,16 @@ define(function (require) {
      * 忽略大小写
      *
      * @public
-     * @param {string} host
+     * @param {string|Host} host
      * @return {boolean}
      */
     Host.prototype.equal = function (host) {
-        host = host || '';
+        if (host instanceof Host) {
+            host = host.get();
+        }
+        else {
+            host = host || '';
+        }
         return this.data == host.toLowerCase();
     };
 

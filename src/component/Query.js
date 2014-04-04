@@ -11,6 +11,8 @@ define(function (require) {
     var parse = require('../util/parse-query');
     var stringify = require('../util/stringify-query');
 
+    var DEFAULT_PREFIX = '?';
+
     /**
      * 判断对象
      *
@@ -156,24 +158,29 @@ define(function (require) {
      * 字符串化
      *
      * @public
+     * @param {string} prefix
      * @return {string}
      */
-    Query.prototype.toString = function () {
+    Query.prototype.toString = function (prefix) {
+        prefix = prefix || DEFAULT_PREFIX;
         var str = stringify(this.data);
 
-        return str ? '?' + str : '';
+        return str ? prefix + str : '';
     };
 
     /**
      * 比较query
      *
      * @public
-     * @param {string|Object} query
+     * @param {string|Object|Query} query
      * @return {boolean}
      */
     Query.prototype.equal = function (query) {
         if (isString(query)) {
             query = parse(query);
+        }
+        else if (query instanceof Query) {
+            query = query.get();
         }
         
         return compareObject(this.data, query);

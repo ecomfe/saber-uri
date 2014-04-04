@@ -124,12 +124,18 @@ define(function (require) {
      * 比较path
      *
      * @public
-     * @param {string} path
+     * @param {string|Path} path
      * @return {boolean}
      */
     Path.prototype.equal = function (path) {
         var myPath = normalize(this.data);
-        path = normalize(Path.resolve(path || ''));
+
+        if (path instanceof Path) {
+            path = normalize(path.get());
+        }
+        else {
+            path = normalize(Path.resolve(path || ''));
+        }
 
         return myPath == path;
     };

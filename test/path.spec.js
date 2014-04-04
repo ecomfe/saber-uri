@@ -83,6 +83,17 @@ define(function (require) {
                 expect(path.equal('/abc/edf/')).toBeTruthy();
             });
 
+            it('should compare with Path object', function () {
+                var path1 = new Path('/abc/edf');
+                var path2 = new Path('/abc/edf/');
+                var path3 = new Path();
+
+                expect(path1.equal(path2)).toBeTruthy();
+                expect(path2.equal(path1)).toBeTruthy();
+                expect(path1.equal(path3)).toBeFalsy();
+                expect(path3.equal(path1)).toBeFalsy();
+            });
+
         });
 
         describe('toString', function () {

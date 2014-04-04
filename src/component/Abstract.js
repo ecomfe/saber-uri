@@ -71,6 +71,9 @@ define(function () {
      * @return {boolean}
      */
     Abstract.prototype.equal = function (data) {
+        if (data instanceof Abstract) {
+            data = data.get();
+        }
         return this.data == data;
     };
 

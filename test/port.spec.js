@@ -17,6 +17,16 @@ define(function (require) {
                 expect(port.equal('')).toBeFalsy();
             });
 
+            it('should compare with Port object', function () {
+                var port1 = new Port('443');
+                var port2 = new Port();
+
+                expect(port1.equal(port2)).toBeFalsy();
+                expect(port2.equal(port1)).toBeFalsy();
+                expect(port1.equal(port2, 'https')).toBeTruthy();
+                expect(port2.equal(port1, 'https')).toBeTruthy();
+            });
+
         });
 
         describe('toString', function () {
