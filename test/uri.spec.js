@@ -94,7 +94,7 @@ define(function (require) {
 
             it('should normalize path', function () {
                 expect(uri('https://www.baidu.com').equal('https://www.baidu.com/')).toBeTruthy();
-                expect(uri('https://www.baidu.com/abc/?www').equal('https://www.baidu.com/abc?www')).toBeTruthy();
+                expect(uri('https://www.baidu.com?xxx').equal('https://www.baidu.com/?xxx')).toBeTruthy();
             });
         });
 
