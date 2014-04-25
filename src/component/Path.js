@@ -16,8 +16,8 @@ define(function (require) {
      * @return {string}
      */
     function normalize(path) {
-        if (path.charAt(path.length - 1) == '/') {
-            path = path.substring(0, path.length - 1);
+        if (!path) {
+            path = '/'
         }
 
         return path;
@@ -95,9 +95,16 @@ define(function (require) {
         }
 
         var isAbsolute = from.charAt(0) == '/';
+        var isDir = false;
         if (to) {
             from = dirname(from);
+            isDir = to.charAt(to.length - 1) == '/';
         }
+        // 对于`/`不处理
+        else if (from.length > 1) {
+            isDir = from.charAt(from.length - 1) == '/';
+        }
+
         var path = from.split('/')
                     .concat(to.split('/'))
                     .filter(
@@ -109,7 +116,9 @@ define(function (require) {
         path = resolveArray(path, !isAbsolute);
 
 
-        return (isAbsolute ? '/' : '') + path.join('/');
+        return (isAbsolute ? '/' : '') 
+                + path.join('/')
+                + (isDir ? '/' : '');
     };
 
     inherits(Path, Abstract);

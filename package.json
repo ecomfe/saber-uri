@@ -1,6 +1,6 @@
 {
   "name": "saber-uri",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "URI处理",
   "main": "main",
   "maintainers": [
@@ -16,7 +16,7 @@
   "repository": "git://github.com/ecomfe/saber-uri.git",
   "bugs": "https://github.com/ecomfe/saber-uri/issues",
   "dependencies": {
-    "saber-lang": "~0.3.0"
+    "saber-lang": "~0.3.1"
   },
   "devDependencies": {
     "phantomjs": "~1.9"

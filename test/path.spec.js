@@ -20,6 +20,15 @@ define(function (require) {
                 expect(Path.resolve('abc', '../abde')).toEqual('../abde');
                 expect(Path.resolve('/abc/../abd', '../../abd/ccc')).toEqual('/abd/ccc');
                 expect(Path.resolve('/abc/abd', '../ccc')).toEqual('/ccc');
+                expect(Path.resolve('/abc/abd', './ccc')).toEqual('/abc/ccc');
+            });
+
+            it('should not ignore the last slash', function () {
+                expect(Path.resolve('/abcd/../abc/')).toEqual('/abc/');
+                expect(Path.resolve('/')).toEqual('/');
+
+                expect(Path.resolve('/abc/abd/', './ccc')).toEqual('/abc/abd/ccc');
+                expect(Path.resolve('/abc/abd/', './ccc/')).toEqual('/abc/abd/ccc/');
             });
 
         });
@@ -97,7 +106,8 @@ define(function (require) {
             it('should return false when they are not same', function () {
                 var path = new Path('abc/dd');
                 expect(path.equal('abc/dd/bb')).toBeFalsy();
-                expect(path.equal('abc/../bb')).toBeFalsy();
+                expect(path.equal('abc/../dd')).toBeFalsy();
+                expect(path.equal('abc/dd/')).toBeFalsy();
             });
 
             it('should return true betwen empty string and \'/\'', function () {
@@ -105,14 +115,9 @@ define(function (require) {
                 expect(path.equal('')).toBeTruthy();
             });
 
-            it('should normalize path', function () {
-                var path = new Path('/abc/edf');
-                expect(path.equal('/abc/edf/')).toBeTruthy();
-            });
-
             it('should compare with Path object', function () {
                 var path1 = new Path('/abc/edf');
-                var path2 = new Path('/abc/edf/');
+                var path2 = new Path('/abc/edf');
                 var path3 = new Path();
 
                 expect(path1.equal(path2)).toBeTruthy();
