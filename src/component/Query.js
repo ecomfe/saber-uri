@@ -60,7 +60,7 @@ define(function (require) {
         b.sort();
 
         var res = true;
-        for (var i = 0, item, len = a.length; res && i < len; i++) {
+        for (var i = 0, len = a.length; res && i < len; i++) {
             res = a[i] == b[i];
         }
 
@@ -107,8 +107,38 @@ define(function (require) {
         return res;
     }
 
+    /**
+     * 解码数据
+     *
+     * @inner
+     * @param {string|Array.<string>} value
+     * @return {string|Array.<string>}
+     */
+    function decodeValue(value) {
+        if (Array.isArray(value)) {
+            value = value.map(function (k) {
+                    return decodeURIComponent(k);
+                });
+        }
+        else {
+            value = decodeURIComponent(value);
+        }
+        return value;
+    }
+
+    /**
+     * 添加查询条件
+     *
+     * @inner
+     * @param {string} key
+     * @param {string|Array.<string>} value
+     * @param {Object} items
+     * @return {Object}
+     */
     function addQueryItem(key, value, items) {
         var item = items[key];
+
+        value = decodeValue(value);
 
         if (item) {
             if (!Array.isArray(item)) {
@@ -154,14 +184,17 @@ define(function (require) {
         if (arguments.length == 1) {
             var query = arguments[0];
             if (isObject(query)) {
-                this.data = extend({}, query);
+                var data = this.data = {};
+                Object.keys(query).forEach(function (key) {
+                    data[key] = decodeValue(query[key]);
+                });
             }
             else {
                 this.data = parse(query);
             }
         }
         else {
-            this.data[arguments[0]] = arguments[1];
+            this.data[arguments[0]] = decodeURIComponent(arguments[1]);
         }
 
     };

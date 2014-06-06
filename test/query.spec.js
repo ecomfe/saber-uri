@@ -7,6 +7,9 @@ define(function (require) {
 
     var Query = require('saber-uri/component/Query');
 
+    var KEY_DECODE = '中文';
+    var KEY_ENCODE = encodeURIComponent(KEY_DECODE);
+
     describe('Query', function () {
 
         describe('set', function () {
@@ -42,6 +45,44 @@ define(function (require) {
                 expect(query.data.age).toEqual('10');
             });
 
+            it('should accepted decode string', function () {
+                var query = new Query();
+
+                query.set('name', KEY_DECODE);
+                expect(query.data.name).toEqual(KEY_DECODE);
+            });
+
+            it('should accepted encode string', function () {
+                var query = new Query();
+
+                query.set('name', KEY_ENCODE);
+                expect(query.data.name).toEqual(KEY_DECODE);
+            });
+
+            it('should accepted object within decode string', function () {
+                var query = new Query();
+
+                query.set({
+                    n: KEY_DECODE,
+                    b: [KEY_DECODE, KEY_DECODE]
+                });
+                expect(query.data.n).toEqual(KEY_DECODE);
+                expect(query.data.b[0]).toEqual(KEY_DECODE);
+                expect(query.data.b[1]).toEqual(KEY_DECODE);
+            });
+
+            it('should accepted object within encode string', function () {
+                var query = new Query();
+
+                query.set({
+                    n: KEY_ENCODE,
+                    b: [KEY_ENCODE, KEY_ENCODE]
+                });
+                expect(query.data.n).toEqual(KEY_DECODE);
+                expect(query.data.b[0]).toEqual(KEY_DECODE);
+                expect(query.data.b[1]).toEqual(KEY_DECODE);
+            });
+
         });
 
         describe('get', function () {
@@ -54,6 +95,14 @@ define(function (require) {
             it('should return part when had one argument', function () {
                 var query = new Query('name=treelite&age=10');
                 expect(query.get('name')).toEqual('treelite');
+            });
+
+            it('should return decode query', function () {
+                var query = new Query('name=' + KEY_DECODE + '&age=10');
+                expect(query.get('name')).toEqual(KEY_DECODE);
+
+                query = new Query('name=' + KEY_ENCODE + '&age=10');
+                expect(query.get('name')).toEqual(KEY_DECODE);
             });
 
         });
@@ -73,6 +122,14 @@ define(function (require) {
             it('should add custom prefix when had data', function () {
                 var query = new Query('name=treelite&age=10');
                 expect(query.toString('~')).toEqual('~name=treelite&age=10');
+            });
+
+            it('should return encode string', function () {
+                var query = new Query('name=' + KEY_DECODE + '&age=10');
+                expect(query.toString()).toEqual('?name=' + KEY_ENCODE + '&age=10');
+
+                query = new Query('name=' + KEY_ENCODE + '&age=10');
+                expect(query.toString()).toEqual('?name=' + KEY_ENCODE + '&age=10');
             });
         });
 
@@ -101,14 +158,58 @@ define(function (require) {
                 query.add({
                     company: 'taobao',
                     t: ['30', '40'],
-                    name: 'treelite'
+                    name: 'treelite',
+                    n: ['1', '2']
                 });
 
-                expect(Object.keys(query.data).length).toBe(3);
+                expect(Object.keys(query.data).length).toBe(4);
                 expect(query.data.company).toEqual(['baidu', 'taobao']);
                 expect(query.data.t).toEqual(['10', '20', '30', '40']);
+                expect(query.data.n).toEqual(['1', '2']);
                 expect(query.data.name).toEqual('treelite');
             })
+
+            it('should add object widthin decode string', function () {
+                var query = new Query();
+
+                query.add({
+                    n: KEY_DECODE,
+                    b: [KEY_DECODE, KEY_DECODE]
+                });
+
+                expect(Object.keys(query.data).length).toBe(2);
+                expect(query.data.n).toEqual(KEY_DECODE);
+                expect(query.data.b[0]).toEqual(KEY_DECODE);
+                expect(query.data.b[1]).toEqual(KEY_DECODE);
+            });
+
+            it('should add object widthin encode string', function () {
+                var query = new Query();
+
+                query.add({
+                    n: KEY_ENCODE,
+                    b: [KEY_ENCODE, KEY_ENCODE]
+                });
+
+                expect(Object.keys(query.data).length).toBe(2);
+                expect(query.data.n).toEqual(KEY_DECODE);
+                expect(query.data.b[0]).toEqual(KEY_DECODE);
+                expect(query.data.b[1]).toEqual(KEY_DECODE);
+            });
+
+            it('should add decode string argument', function () {
+                var query = new Query();
+
+                query.add('name', KEY_DECODE);
+                expect(query.data.name).toEqual(KEY_DECODE);
+            });
+
+            it('should add encode string argument', function () {
+                var query = new Query();
+
+                query.add('name', KEY_ENCODE);
+                expect(query.data.name).toEqual(KEY_DECODE);
+            });
 
         });
 
@@ -141,6 +242,13 @@ define(function (require) {
                 expect(q2.equal(q1)).toBeTruthy();
                 expect(q1.equal(q3)).toBeFalsy();
                 expect(q3.equal(q1)).toBeFalsy();
+            });
+
+            it('should compare with decode or encode params', function () {
+                var q1 = new Query('company=' + KEY_DECODE + '&company=taobao&age=10');
+                var q2 = new Query('company=' + KEY_DECODE + '&company=taobao&age=10');
+
+                expect(q1.equal(q2)).toBeTruthy();
             });
 
         });
