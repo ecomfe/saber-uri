@@ -68,7 +68,7 @@ define(function () {
      * 数据比较
      *
      * @public
-     * @param {Object}
+     * @param {Object} data
      * @return {boolean}
      */
     Abstract.prototype.equal = function (data) {

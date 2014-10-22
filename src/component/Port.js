@@ -44,7 +44,7 @@ define(function (require) {
         }
         port = port || DEFAULT_PORT[scheme];
 
-        return myPort == port;
+        return myPort === port;
     };
 
     /**

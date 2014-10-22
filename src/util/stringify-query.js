@@ -4,7 +4,7 @@
  */
 
 define(function () {
-     
+
     /**
      * 字符串化query
      *
@@ -18,7 +18,7 @@ define(function () {
 
         Object.keys(query).forEach(function (key) {
             item = query[key];
-            
+
             if (!Array.isArray(item)) {
                 item = [item];
             }

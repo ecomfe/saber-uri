@@ -22,7 +22,7 @@ define(function (require) {
      */
     function isObject(data) {
         return '[object Object]'
-                    == Object.prototype.toString.call(data);
+                    === Object.prototype.toString.call(data);
     }
 
     /**
@@ -33,8 +33,7 @@ define(function (require) {
      * @return {boolean}
      */
     function isString(str) {
-        return '[object String]'
-                    == Object.prototype.toString.call(str);
+        return typeof str === 'string';
     }
 
     /**
@@ -50,7 +49,7 @@ define(function (require) {
             return false;
         }
 
-        if (a.length != b.length) {
+        if (a.length !== b.length) {
             return false;
         }
 
@@ -84,7 +83,7 @@ define(function (require) {
         var aKeys = Object.keys(a);
         var bKeys = Object.keys(b);
 
-        if (aKeys.length != bKeys.length) {
+        if (aKeys.length !== bKeys.length) {
             return false;
         }
 
@@ -181,7 +180,7 @@ define(function (require) {
      */
     Query.prototype.set = function () {
 
-        if (arguments.length == 1) {
+        if (arguments.length === 1) {
             var query = arguments[0];
             if (isObject(query)) {
                 var data = this.data = {};
@@ -237,13 +236,13 @@ define(function (require) {
         else if (query instanceof Query) {
             query = query.get();
         }
-        
+
         return compareObject(this.data, query);
     };
 
     /**
      * 添加query item
-     * 
+     *
      * @public
      * @param {string|Object} key
      * @param {string=} value

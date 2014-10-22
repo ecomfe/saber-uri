@@ -22,7 +22,7 @@ define(function (require) {
     /**
      * 设置host
      * 忽略大小写
-     * 
+     *
      * @public
      * @param {string} host
      */
@@ -46,7 +46,7 @@ define(function (require) {
         else {
             host = host || '';
         }
-        return this.data == host.toLowerCase();
+        return this.data === host.toLowerCase();
     };
 
     return Host;

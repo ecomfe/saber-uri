@@ -11,13 +11,13 @@ define(function (require) {
      * 创建URI对象
      *
      * @public
-     * @param {...string|Object} arg
+     * @param {...string|Object} data
      * @return {Object}
      */
     var exports = function (data) {
-            return new URI(data);
-        };
-   
+        return new URI(data);
+    };
+
 
     /**
      * 解析URI字符串
