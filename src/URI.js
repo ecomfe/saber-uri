@@ -14,15 +14,15 @@ define(function (require) {
      * @type {Object}
      */
     var COMPONENTS = {
-            scheme: require('./component/Scheme'),
-            username: require('./component/UserName'),
-            password: require('./component/Password'),
-            host: require('./component/Host'),
-            port: require('./component/Port'),
-            path: require('./component/Path'),
-            query: require('./component/Query'),
-            fragment: require('./component/Fragment')
-        };
+        scheme: require('./component/Scheme'),
+        username: require('./component/UserName'),
+        password: require('./component/Password'),
+        host: require('./component/Host'),
+        port: require('./component/Port'),
+        path: require('./component/Path'),
+        query: require('./component/Query'),
+        fragment: require('./component/Fragment')
+    };
 
     /**
      * URI
@@ -32,11 +32,11 @@ define(function (require) {
     function URI(data) {
         data = parseURI(data);
 
-        var factory;
+        var Factory;
         var me = this;
         Object.keys(COMPONENTS).forEach(function (name) {
-            factory = COMPONENTS[name];
-            me[name] = new factory(data[name]);
+            Factory = COMPONENTS[name];
+            me[name] = new Factory(data[name]);
         });
     }
 
@@ -68,7 +68,7 @@ define(function (require) {
      *
      * @public
      * @param {string=} name 属性名称
-     * @param {*} 属性值
+     * @param {...*} args
      */
     URI.prototype.set = function () {
         var i = 0;
@@ -160,7 +160,7 @@ define(function (require) {
         var names = Object.keys(COMPONENTS);
 
         for (var i = 0, name; res && (name = names[i]); i++) {
-            if (name == 'port') {
+            if (name === 'port') {
                 res = this[name].equal(uri[name].get(), this.scheme.get());
             }
             else {

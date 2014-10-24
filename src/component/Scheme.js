@@ -46,7 +46,7 @@ define(function (require) {
         else {
             scheme = scheme || '';
         }
-        return this.data == scheme.toLowerCase();
+        return this.data === scheme.toLowerCase();
     };
 
     return Scheme;

@@ -44,7 +44,7 @@ define(function (require) {
         var res = {};
 
         str.replace(
-            /^([^@]+@)?([^:]+)(:\d+)?$/, 
+            /^([^@]+@)?([^:]+)(:\d+)?$/,
             function ($0, userInfo, host, port) {
                 if (userInfo) {
                     userInfo = userInfo.substring(0, userInfo.legnth - 1);
@@ -64,13 +64,13 @@ define(function (require) {
         return res;
 
     }
-    
+
     /**
      * 检测是否有port
-     * 
+     *
      * @inner
      * @param {string} str
-     * @param {Object}
+     * @param {Object} data
      * @return {boolean}
      */
     function detectPort(str, data) {
@@ -95,7 +95,7 @@ define(function (require) {
      *
      * @inner
      * @param {string} str
-     * @param {Object}
+     * @param {Object} data
      * @return {boolean}
      */
     function detectScheme(str, data) {
@@ -144,7 +144,7 @@ define(function (require) {
             res.scheme = str.substring(0, i);
             str = str.substring(i + 3);
             // 特例 `file` 不存在 authority
-            if (res.scheme == 'file') {
+            if (res.scheme === 'file') {
                 res.path = str;
             }
             else {
@@ -188,7 +188,7 @@ define(function (require) {
      */
     return function (data) {
 
-        if (typeof data == 'string'
+        if (typeof data === 'string'
             || data instanceof String
         ) {
             data = parse(data);

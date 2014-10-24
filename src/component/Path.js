@@ -12,12 +12,12 @@ define(function (require) {
      * see rfc3986 #6.2.3. Scheme-Based Normalization
      *
      * @inner
-     * @param {string}
+     * @param {string} path
      * @return {string}
      */
     function normalize(path) {
         if (!path) {
-            path = '/'
+            path = '/';
         }
 
         return path;
@@ -47,10 +47,10 @@ define(function (require) {
     function resolveArray(paths, overRoot) {
         var up = 0;
         for (var i = paths.length - 1, item; item = paths[i]; i--) {
-            if (item == '.') {
+            if (item === '.') {
                 paths.splice(i, 1);
             }
-            else if (item == '..') {
+            else if (item === '..') {
                 paths.splice(i, 1);
                 up++;
             }
@@ -61,7 +61,7 @@ define(function (require) {
         }
 
         if (overRoot) {
-            while(up-- > 0) {
+            while (up-- > 0) {
                 paths.unshift('..');
             }
         }
@@ -90,25 +90,25 @@ define(function (require) {
     Path.resolve = function (from, to) {
         to = to || '';
 
-        if (to.charAt(0) == '/') {
+        if (to.charAt(0) === '/') {
             return to;
         }
 
-        var isAbsolute = from.charAt(0) == '/';
+        var isAbsolute = from.charAt(0) === '/';
         var isDir = false;
         if (to) {
             from = dirname(from);
-            isDir = to.charAt(to.length - 1) == '/';
+            isDir = to.charAt(to.length - 1) === '/';
         }
         // 对于`/`不处理
         else if (from.length > 1) {
-            isDir = from.charAt(from.length - 1) == '/';
+            isDir = from.charAt(from.length - 1) === '/';
         }
 
         var path = from.split('/')
                     .concat(to.split('/'))
                     .filter(
-                        function (item) { 
+                        function (item) {
                             return !!item;
                         }
                     );
@@ -116,7 +116,7 @@ define(function (require) {
         path = resolveArray(path, !isAbsolute);
 
 
-        return (isAbsolute ? '/' : '') 
+        return (isAbsolute ? '/' : '')
                 + path.join('/')
                 + (isDir ? '/' : '');
     };
@@ -159,7 +159,7 @@ define(function (require) {
             path = normalize(Path.resolve(path || ''));
         }
 
-        return myPath == path;
+        return myPath === path;
     };
 
     /**
