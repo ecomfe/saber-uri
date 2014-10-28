@@ -1,4 +1,5 @@
-# saber-uri [![Build Status](https://travis-ci.org/ecomfe/saber-uri.png)](https://travis-ci.org/ecomfe/saber-uri)
+saber-uri [![Build Status](https://travis-ci.org/ecomfe/saber-uri.png)](https://travis-ci.org/ecomfe/saber-uri)
+===
 
 `URI`处理
 
@@ -13,9 +14,17 @@
 * `query` 查询条件
 * `fragment` 片段
 
+## Installation
+
+通过 [edp](https://github.com/ecomfe/edp) 引入模块：
+
+```sh
+edp import saber-uri
+```
+
 ## Usage
 
-```javascript
+```js
 var uri = require('saber-uri');
 
 // 构建URI对象
@@ -31,13 +40,16 @@ console.log(url.toString())
 
 ## API
 
-### uri( data )
+### Methods
+
+#### uri(data)
 
 构建`URI`对象
 
-* `data` `{string|Object}`
+* **data** `{string|Object}`
+* _return_ `{URI}` 创建的[URI](doc/uri.md)对象
 
-```javascript
+```js
 var uri = require('saber-uri');
 var url;
 
@@ -48,11 +60,12 @@ url = uri('www.baidu.com');
 url = uri({host: 'www.baidu.com', path: '/search'});
 ```
 
-### uri.parse( str )
+#### parse(str)
 
 解析`URI`字符串
 
-* `str` `{string}`
+* **str** `{string}`
+* _return_ `{Object}`
 
 ```javascript
 var uri = require('saber-uri');
@@ -65,12 +78,17 @@ var uri = require('saber-uri');
 uri.parse('mailto:c.xinle@gmail.com');
 ```
 
-### uri.resolve( from, to )
+#### resolve(from, to)
 
 resolve path
 
-* `from` `{string}`
-* `to` `{string=}`
+* **from** `{string}`
+* **to** `{string=}`
+* _return_ `{string}`
+
+### Classes
+
+* [URI](doc/uri.md)
 
 ### URI
 
