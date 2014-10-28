@@ -40,6 +40,9 @@ console.log(url.toString())
 
 ## API
 
+* [Methods](#methods)
+* [Classes](#classes)
+
 ### Methods
 
 #### uri(data)
