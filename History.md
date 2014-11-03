@@ -1,3 +1,7 @@
+#1.0.0 / 2014-11-03
+
+* 稳定API，发布`1.0.0`
+
 #0.1.3 / 2014-10-24
 
 * 更新依赖（[saber-lang@0.4.0](https://github.com/ecomfe/saber-lang)）
