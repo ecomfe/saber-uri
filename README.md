@@ -1,4 +1,5 @@
-# saber-uri [![Build Status](https://travis-ci.org/ecomfe/saber-uri.png)](https://travis-ci.org/ecomfe/saber-uri)
+saber-uri [![Build Status](https://travis-ci.org/ecomfe/saber-uri.png)](https://travis-ci.org/ecomfe/saber-uri)
+===
 
 `URI`处理
 
@@ -13,9 +14,17 @@
 * `query` 查询条件
 * `fragment` 片段
 
+## Installation
+
+通过 [edp](https://github.com/ecomfe/edp) 引入模块：
+
+```sh
+edp import saber-uri
+```
+
 ## Usage
 
-```javascript
+```js
 var uri = require('saber-uri');
 
 // 构建URI对象
@@ -31,13 +40,19 @@ console.log(url.toString())
 
 ## API
 
-### uri( data )
+* [Methods](#methods)
+* [Classes](#classes)
+
+### Methods
+
+#### uri(data)
 
 构建`URI`对象
 
-* `data` `{string|Object}`
+* **data** `{string|Object}`
+* _return_ `{URI}` 创建的[URI](doc/uri.md)对象
 
-```javascript
+```js
 var uri = require('saber-uri');
 var url;
 
@@ -48,11 +63,12 @@ url = uri('www.baidu.com');
 url = uri({host: 'www.baidu.com', path: '/search'});
 ```
 
-### uri.parse( str )
+#### parse(str)
 
 解析`URI`字符串
 
-* `str` `{string}`
+* **str** `{string}`
+* _return_ `{Object}`
 
 ```javascript
 var uri = require('saber-uri');
@@ -65,87 +81,14 @@ var uri = require('saber-uri');
 uri.parse('mailto:c.xinle@gmail.com');
 ```
 
-### uri.resolve( from, to )
+#### resolve(from, to)
 
 resolve path
 
-* `from` `{string}`
-* `to` `{string=}`
+* **from** `{string}`
+* **to** `{string=}`
+* _return_ `{string}`
 
-### URI
+### Classes
 
-`uri()`创建的`URI`对象
-
-#### .set( name, data )
-
-设置组件的值
-
-* `name` `{string=}` 组件名，可省略，省略后就对整个`URI`对象进行设置
-* `data` `{*}` 组件值
-
-```javascript
-var uri = require('saber-uri');
-var url = uri('www.baidu.com');
-
-// www.baidu.com/search
-url.set('path', '/search');
-
-// github.com
-url.set('github.com');
-```
-
-#### .get( name, data )
-
-获取组件值
-
-* `name` `{string}` 组件名
-
-```javascript
-var uri = require('saber-uri');
-var url = uri('www.baidu.com/search?wd=100');
-
-// /search
-url.get('path');
-
-// 100
-url.get('query', 'wd');
-```
-
-#### .toString( name )
-
-字符串化
-
-* `name` `{string=}` 组件名，可省略，省略后就对整个`URI`对象进行字符串化
-
-```javascript
-var uri = require('saber-uri');
-var url = uri('www.baidu.com/search?wd=100');
-
-// ?wd=100
-url.toString('query');
-
-// www.baidu.com/search?wd=100
-url.toString();
-```
-
-#### .equal( uri )
-
-判断`URI`是否相等
-
-* `uri` `{string|Object}`
-
-```javascript
-var uri = require('saber-uri');
-var url1 = uri('www.baidu.com/search');
-var url2 = uri('www.baidu.com/search?wd=100');
-
-// true
-url1.equal('www.baidu.com/search');
-
-// false
-url1.equal(url2);
-```
-
-===
-
-[![Saber](https://f.cloud.github.com/assets/157338/1485433/aeb5c72a-4714-11e3-87ae-7ef8ae66e605.png)](http://ecomfe.github.io/saber/)
+* [URI](doc/uri.md)
