@@ -117,8 +117,7 @@ define(function (require) {
 
 
         return (isAbsolute ? '/' : '')
-                + path.join('/')
-                + (isDir ? '/' : '');
+            + (path.length > 0 ? path.join('/') + (isDir ? '/' : '') : '');
     };
 
     inherits(Path, Abstract);

@@ -21,6 +21,7 @@ define(function (require) {
                 expect(Path.resolve('/abc/../abd', '../../abd/ccc')).toEqual('/abd/ccc');
                 expect(Path.resolve('/abc/abd', '../ccc')).toEqual('/ccc');
                 expect(Path.resolve('/abc/abd', './ccc')).toEqual('/abc/ccc');
+                expect(Path.resolve('/abc/abd', '../')).toEqual('/');
             });
 
             it('should not ignore the last slash', function () {
