@@ -91,7 +91,7 @@ define(function (require) {
         to = to || '';
 
         if (to.charAt(0) === '/') {
-            return to;
+            return Path.resolve(to);
         }
 
         var isAbsolute = from.charAt(0) === '/';
