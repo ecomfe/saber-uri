@@ -13,7 +13,7 @@ define(function (require) {
      * Fragment
      *
      * @constructor
-     * @param {string} data
+     * @param {string} data 数据
      */
     function Fragment(data) {
         Abstract.call(this, data);
@@ -25,7 +25,7 @@ define(function (require) {
      * 字符串化
      *
      * @public
-     * @param {string} prefix
+     * @param {string=} prefix 前缀分割符
      * @return {string}
      */
     Fragment.prototype.toString = function (prefix) {

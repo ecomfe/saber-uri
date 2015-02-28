@@ -7,6 +7,12 @@ define(function (require) {
     var inherits = require('saber-lang/inherits');
     var Abstract = require('./Abstract');
 
+    /**
+     * 常见协议的默认端口号
+     *
+     * @const
+     * @type {Object}
+     */
     var DEFAULT_PORT = {
             ftp: '21',
             ssh: '22',
@@ -21,7 +27,7 @@ define(function (require) {
      * Prot
      *
      * @constructor
-     * @param {string} data
+     * @param {string} data 端口号
      */
     function Port(data) {
         Abstract.call(this, data);
@@ -33,8 +39,8 @@ define(function (require) {
      * 比较port
      *
      * @public
-     * @param {string|Port} port
-     * @param {string=} scheme
+     * @param {string|Port} port 端口号
+     * @param {string=} scheme 协议
      * @return {boolean}
      */
     Port.prototype.equal = function (port, scheme) {
@@ -53,7 +59,7 @@ define(function (require) {
      * @public
      * @return {string}
      */
-    Port.prototype.toString = function (port, scheme) {
+    Port.prototype.toString = function () {
         return this.data ? ':' + this.data : '';
     };
 

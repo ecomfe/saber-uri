@@ -11,7 +11,7 @@ define(function (require) {
      * UserName
      *
      * @constructor
-     * @param {string} data
+     * @param {string} data 用户名
      */
     function UserName(data) {
         Abstract.call(this, data);

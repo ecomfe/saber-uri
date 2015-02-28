@@ -11,7 +11,7 @@ define(function (require) {
      * 创建URI对象
      *
      * @public
-     * @param {...string|Object} data
+     * @param {...string|Object} data uri
      * @return {Object}
      */
     var exports = function (data) {
@@ -23,7 +23,7 @@ define(function (require) {
      * 解析URI字符串
      *
      * @public
-     * @param {string} str
+     * @param {string} str URI字符串
      * @return {Object}
      */
     exports.parse = require('./util/uri-parser');
@@ -32,8 +32,8 @@ define(function (require) {
      * resolve path
      *
      * @public
-     * @param {string} from
-     * @param {string=} to
+     * @param {string} from 起始路径
+     * @param {string=} to 目标路径
      * @return {string}
      */
     exports.resolve = require('./component/Path').resolve;

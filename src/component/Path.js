@@ -12,7 +12,7 @@ define(function (require) {
      * see rfc3986 #6.2.3. Scheme-Based Normalization
      *
      * @inner
-     * @param {string} path
+     * @param {string} path 路径
      * @return {string}
      */
     function normalize(path) {
@@ -27,7 +27,7 @@ define(function (require) {
      * 获取目录
      *
      * @inner
-     * @param {string} path
+     * @param {string} path 路径
      * @return {string}
      */
     function dirname(path) {
@@ -40,8 +40,8 @@ define(function (require) {
      * 处理路径中的相对路径
      *
      * @inner
-     * @param {Array} paths
-     * @param {boolean} overRoot
+     * @param {Array} paths 分割后的路径
+     * @param {boolean} overRoot 是否已超出根目录
      * @return {Array}
      */
     function resolveArray(paths, overRoot) {
@@ -73,8 +73,8 @@ define(function (require) {
      * Path
      *
      * @constructor
-     * @param {string} data
-     * @param {string|Path=} base
+     * @param {string} data 路径
+     * @param {string|Path=} base 相对路径
      */
     function Path(data, base) {
         Abstract.call(this, data, base);
@@ -84,14 +84,15 @@ define(function (require) {
      * 应用路径
      *
      * @public
-     * @param {string} from
-     * @param {string=} to
+     * @param {string} from 起始路径
+     * @param {string=} to 目标路径
+     * @return {string}
      */
     Path.resolve = function (from, to) {
         to = to || '';
 
         if (to.charAt(0) === '/') {
-            return to;
+            return Path.resolve(to);
         }
 
         var isAbsolute = from.charAt(0) === '/';
@@ -126,8 +127,8 @@ define(function (require) {
      * 设置path
      *
      * @public
-     * @param {string} path
-     * @param {string|Path=} base
+     * @param {string} path 路径
+     * @param {string|Path=} base 相对路径
      */
     Path.prototype.set = function (path, base) {
         if (base instanceof Path) {
@@ -145,7 +146,7 @@ define(function (require) {
      * 比较path
      *
      * @public
-     * @param {string|Path} path
+     * @param {string|Path} path 路径
      * @return {boolean}
      */
     Path.prototype.equal = function (path) {
@@ -165,8 +166,8 @@ define(function (require) {
      * 应用路径
      *
      * @public
-     * @param {string|Path} path
-     * @param {boolean} from
+     * @param {string|Path} path 起始路径
+     * @param {boolean} from 目标路径
      */
     Path.prototype.resolve = function (path, from) {
         if (path instanceof Path) {

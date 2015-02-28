@@ -32,6 +32,21 @@ define(function (require) {
                 expect(Path.resolve('/abc/abd/', './ccc/')).toEqual('/abc/abd/ccc/');
             });
 
+            it('should ignore first argument when second argument start with "/"', function () {
+                expect(Path.resolve('/abc/abd', '/../abc/../')).toEqual('/');
+                expect(Path.resolve('/abc/abd', '//abc')).toEqual('/abc');
+            });
+
+            it('out of range', function () {
+                expect(Path.resolve('/', '../../b')).toEqual('/b');
+                expect(Path.resolve('../../b')).toEqual('../../b');
+            });
+
+            it('wrong path', function () {
+                expect(Path.resolve('///abc')).toEqual('/abc');
+                expect(Path.resolve('///../abc')).toEqual('/abc');
+            });
+
         });
 
         describe('new', function () {

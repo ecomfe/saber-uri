@@ -11,7 +11,7 @@ define(function (require) {
      * Host
      *
      * @constructor
-     * @param {string} data
+     * @param {string} data 数据
      */
     function Host(data) {
         Abstract.call(this, data);
@@ -24,7 +24,7 @@ define(function (require) {
      * 忽略大小写
      *
      * @public
-     * @param {string} host
+     * @param {string} host Host
      */
     Host.prototype.set = function (host) {
         host = host || '';
@@ -36,7 +36,7 @@ define(function (require) {
      * 忽略大小写
      *
      * @public
-     * @param {string|Host} host
+     * @param {string|Host} host Host
      * @return {boolean}
      */
     Host.prototype.equal = function (host) {

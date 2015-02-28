@@ -11,25 +11,31 @@ define(function (require) {
     var parse = require('../util/parse-query');
     var stringify = require('../util/stringify-query');
 
+    /**
+     * 默认的查询条件分割符
+     *
+     * @const
+     * @type {string}
+     */
     var DEFAULT_PREFIX = '?';
 
     /**
      * 判断对象
      *
      * @inner
-     * @param {*} data
+     * @param {*} data 变量
      * @return {boolean}
      */
     function isObject(data) {
         return '[object Object]'
-                    === Object.prototype.toString.call(data);
+            === Object.prototype.toString.call(data);
     }
 
     /**
      * 判断字符串
      *
      * @inner
-     * @param {*} str
+     * @param {*} str 变量
      * @return {boolean}
      */
     function isString(str) {
@@ -40,8 +46,8 @@ define(function (require) {
      * 比较数组
      *
      * @inner
-     * @param {Array} a
-     * @param {Array} b
+     * @param {Array} a 待比较数组
+     * @param {Array} b 待比较数组
      * @return {boolean}
      */
     function compareArray(a, b) {
@@ -60,7 +66,10 @@ define(function (require) {
 
         var res = true;
         for (var i = 0, len = a.length; res && i < len; i++) {
+            // 需要类型转化的比较
+            /* eslint-disable eqeqeq */
             res = a[i] == b[i];
+            /* eslint-enable eqeqeq */
         }
 
         return res;
@@ -70,8 +79,8 @@ define(function (require) {
      * 比较对象
      *
      * @inner
-     * @param {Object} a
-     * @param {Object} b
+     * @param {Object} a 待比较对象
+     * @param {Object} b 待比较对象
      * @return {boolean}
      */
     function compareObject(a, b) {
@@ -99,7 +108,10 @@ define(function (require) {
                 res = compareArray(item, b[key]);
             }
             else {
+                // 需要类型转化的比较
+                /* eslint-disable eqeqeq */
                 res = item == b[key];
+                /* eslint-enable eqeqeq */
             }
         }
 
@@ -110,7 +122,7 @@ define(function (require) {
      * 解码数据
      *
      * @inner
-     * @param {string|Array.<string>} value
+     * @param {string|Array.<string>} value 数据
      * @return {string|Array.<string>}
      */
     function decodeValue(value) {
@@ -129,9 +141,9 @@ define(function (require) {
      * 添加查询条件
      *
      * @inner
-     * @param {string} key
-     * @param {string|Array.<string>} value
-     * @param {Object} items
+     * @param {string} key 键
+     * @param {string|Array.<string>} value 值
+     * @param {Object} items 目标数据
      * @return {Object}
      */
     function addQueryItem(key, value, items) {
@@ -163,7 +175,7 @@ define(function (require) {
      * Query
      *
      * @constructor
-     * @param {string|Object} data
+     * @param {string|Object} data 查询条件
      */
     function Query(data) {
         data = data || {};
@@ -176,7 +188,7 @@ define(function (require) {
      * 设置query
      *
      * @public
-     * @param {...string|Object} data
+     * @param {...string|Object} data 查询条件
      */
     Query.prototype.set = function () {
 
@@ -202,7 +214,8 @@ define(function (require) {
      * 获取query
      *
      * @public
-     * @param {string=} name
+     * @param {string=} name 查询条件名称
+     * @return {*}
      */
     Query.prototype.get = function (name) {
         return name ? this.data[name] : extend({}, this.data);
@@ -212,7 +225,7 @@ define(function (require) {
      * 字符串化
      *
      * @public
-     * @param {string} prefix
+     * @param {string=} prefix 前缀分割符
      * @return {string}
      */
     Query.prototype.toString = function (prefix) {
@@ -226,7 +239,7 @@ define(function (require) {
      * 比较query
      *
      * @public
-     * @param {string|Object|Query} query
+     * @param {string|Object|Query} query 查询条件
      * @return {boolean}
      */
     Query.prototype.equal = function (query) {
@@ -244,8 +257,8 @@ define(function (require) {
      * 添加query item
      *
      * @public
-     * @param {string|Object} key
-     * @param {string=} value
+     * @param {string|Object} key 键
+     * @param {string=} value 值
      */
     Query.prototype.add = function (key, value) {
         var data = this.data;
@@ -266,7 +279,7 @@ define(function (require) {
      * 删除query item
      *
      * @public
-     * @param {string=} key 忽略该参数则清除所有的query item
+     * @param {string=} key 键，忽略该参数则清除所有的query item
      */
     Query.prototype.remove = function (key) {
         if (!key) {
