@@ -11,7 +11,7 @@ define(function (require) {
      * Scheme
      *
      * @constructor
-     * @param {string} data
+     * @param {string} data 协议
      */
     function Scheme(data) {
         Abstract.call(this, data);
@@ -24,7 +24,7 @@ define(function (require) {
      * 忽略大小写
      *
      * @public
-     * @param {string} scheme
+     * @param {string} scheme 协议
      */
     Scheme.prototype.set = function (scheme) {
         scheme = scheme || '';
@@ -36,7 +36,7 @@ define(function (require) {
      * 忽略大小写
      *
      * @public
-     * @param {string|Scheme} scheme
+     * @param {string|Scheme} scheme 协议
      * @return {boolean}
      */
     Scheme.prototype.equal = function (scheme) {

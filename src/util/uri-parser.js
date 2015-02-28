@@ -13,7 +13,7 @@ define(function (require) {
      * 标准化URI数据
      *
      * @inner
-     * @param {Object} data
+     * @param {Object} data URI数据
      * @return {Object}
      */
     function normalize(data) {
@@ -37,7 +37,7 @@ define(function (require) {
      * ! 不支持IPv6
      *
      * @inner
-     * @param {string} str
+     * @param {string} str authority
      * @return {Object}
      */
     function parseAuthority(str) {
@@ -69,8 +69,8 @@ define(function (require) {
      * 检测是否有port
      *
      * @inner
-     * @param {string} str
-     * @param {Object} data
+     * @param {string} str uri字符串
+     * @param {Object} data 数据容器
      * @return {boolean}
      */
     function detectPort(str, data) {
@@ -94,8 +94,8 @@ define(function (require) {
      * 检测是否有scheme
      *
      * @inner
-     * @param {string} str
-     * @param {Object} data
+     * @param {string} str uri字符串
+     * @param {Object} data 数据容器
      * @return {boolean}
      */
     function detectScheme(str, data) {
@@ -118,7 +118,7 @@ define(function (require) {
      * 解析字符串
      *
      * @inner
-     * @param {string} str
+     * @param {string} str uri字符串
      * @return {Object}
      */
     function parse(str) {
@@ -183,7 +183,7 @@ define(function (require) {
      * 解析URI
      *
      * @public
-     * @param {string|Object} data
+     * @param {string|Object} data uri
      * @return {Object}
      */
     return function (data) {

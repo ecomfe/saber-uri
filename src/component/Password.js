@@ -11,7 +11,7 @@ define(function (require) {
      * Password
      *
      * @constructor
-     * @param {string} data
+     * @param {string} data 数据
      */
     function Password(data) {
         Abstract.call(this, data);

@@ -9,7 +9,7 @@ define(function () {
      * 解析query
      *
      * @public
-     * @param {string} query
+     * @param {string} query 查询条件
      * @return {Object}
      */
     function parse(query) {

@@ -9,7 +9,7 @@ define(function () {
      * 字符串化query
      *
      * @public
-     * @param {Object} query
+     * @param {Object} query 查询条件
      * @return {string}
      */
     function stringify(query) {

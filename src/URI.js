@@ -28,6 +28,7 @@ define(function (require) {
      * URI
      *
      * @contructor
+     * @param {string|Object} data URL
      */
     function URI(data) {
         data = parseURI(data);
@@ -44,6 +45,7 @@ define(function (require) {
      * 字符串化authority
      *
      * @inner
+     * @param {URI} uri URI对象
      * @return {string}
      */
     function stringifyAuthority(uri) {
@@ -68,7 +70,7 @@ define(function (require) {
      *
      * @public
      * @param {string=} name 属性名称
-     * @param {...*} args
+     * @param {...*} args 数据
      */
     URI.prototype.set = function () {
         var i = 0;
@@ -95,7 +97,7 @@ define(function (require) {
      * 获取属性
      *
      * @public
-     * @param {string} name
+     * @param {string} name 属性名称
      * @return {*}
      */
     URI.prototype.get = function () {
@@ -148,7 +150,7 @@ define(function (require) {
      * 比较uri
      *
      * @public
-     * @param {string|URI} uri
+     * @param {string|URI} uri 待比较的URL对象
      * @return {boolean}
      */
     URI.prototype.equal = function (uri) {
