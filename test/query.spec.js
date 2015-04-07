@@ -14,19 +14,19 @@ define(function (require) {
 
         describe('set', function () {
 
-            it('should accepted undfined', function () {
+            it('should accept undfined', function () {
                 var query = new Query();
                 expect(Object.keys(query.data).length).toBe(0);
             });
 
-            it('should accepted two arguments to set parts', function () {
+            it('should accept two arguments to set parts', function () {
                 var query = new Query();
                 query.set('name', 'treelite');
                 expect(Object.keys(query.data).length).toBe(1);
                 expect(query.data.name).toEqual('treelite');
             });
 
-            it('should accepted one string argument', function () {
+            it('should accept one string argument', function () {
                 var query = new Query();
                 query.set('name=treelite&age=10');
                 expect(Object.keys(query.data).length).toBe(2);
@@ -34,7 +34,7 @@ define(function (require) {
                 expect(query.data.age).toEqual('10');
             });
 
-            it('should accepted one object argument', function () {
+            it('should accept one object argument', function () {
                 var query = new Query();
                 query.set({
                     name: 'treelite',
@@ -45,21 +45,21 @@ define(function (require) {
                 expect(query.data.age).toEqual('10');
             });
 
-            it('should accepted decode string', function () {
+            it('should accept decode string', function () {
                 var query = new Query();
 
                 query.set('name', KEY_DECODE);
                 expect(query.data.name).toEqual(KEY_DECODE);
             });
 
-            it('should accepted encode string', function () {
+            it('should accept encode string', function () {
                 var query = new Query();
 
                 query.set('name', KEY_ENCODE);
                 expect(query.data.name).toEqual(KEY_DECODE);
             });
 
-            it('should accepted object within decode string', function () {
+            it('should accept object within decode string', function () {
                 var query = new Query();
 
                 query.set({
@@ -71,7 +71,7 @@ define(function (require) {
                 expect(query.data.b[1]).toEqual(KEY_DECODE);
             });
 
-            it('should accepted object within encode string', function () {
+            it('should accept object within encode string', function () {
                 var query = new Query();
 
                 query.set({
@@ -81,6 +81,19 @@ define(function (require) {
                 expect(query.data.n).toEqual(KEY_DECODE);
                 expect(query.data.b[0]).toEqual(KEY_DECODE);
                 expect(query.data.b[1]).toEqual(KEY_DECODE);
+            });
+
+            it('should accept undefined/null value', function () {
+                var query = new Query();
+
+                query.set('name');
+                expect(query.data.name).toBeNull();
+
+                query.set('age', null);
+                expect(query.data.age).toBeNull();
+
+                query.set('sex', '');
+                expect(query.data.sex).toEqual('');
             });
 
         });
@@ -112,6 +125,11 @@ define(function (require) {
             it('should return empty string when had no data', function () {
                 var query = new Query();
                 expect(query.toString()).toEqual('');
+            });
+
+            it('should return right string which contain undefined/null', function () {
+                var query = new Query({name: null, age: undefined, sex: '', normal: 10});
+                expect(query.toString()).toEqual('?name&age&sex=&normal=10');
             });
 
             it('should add defualt prefix when had data', function () {
@@ -209,6 +227,19 @@ define(function (require) {
 
                 query.add('name', KEY_ENCODE);
                 expect(query.data.name).toEqual(KEY_DECODE);
+            });
+
+            it('should add undefined/null value', function () {
+                var query = new Query();
+
+                query.add('name');
+                expect(query.data.name).toBeNull();
+
+                query.add('age', null);
+                expect(query.data.age).toBeNull();
+
+                query.add('sex', '');
+                expect(query.data.sex).toEqual('');
             });
 
         });
