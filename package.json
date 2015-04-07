@@ -20,6 +20,6 @@
     "saber-lang": "~1.0.0"
   },
   "devDependencies": {
-    "phantomjs": "~1.9"
+    "phantomjs": "^1.9.16"
   }
 }
