@@ -128,8 +128,11 @@ define(function (require) {
     function decodeValue(value) {
         if (Array.isArray(value)) {
             value = value.map(function (k) {
-                    return decodeURIComponent(k);
-                });
+                return decodeURIComponent(k || '');
+            });
+        }
+        else if (!value && !isString(value)) {
+            value = null;
         }
         else {
             value = decodeURIComponent(value);
@@ -205,7 +208,7 @@ define(function (require) {
             }
         }
         else {
-            this.data[arguments[0]] = decodeURIComponent(arguments[1]);
+            this.data[arguments[0]] = decodeValue(arguments[1]);
         }
 
     };

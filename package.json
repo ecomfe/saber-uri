@@ -1,6 +1,6 @@
 {
   "name": "saber-uri",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "URI处理",
   "main": "main",
   "maintainers": [
@@ -20,6 +20,6 @@
     "saber-lang": "~1.0.0"
   },
   "devDependencies": {
-    "phantomjs": "~1.9"
+    "phantomjs": "^1.9.16"
   }
 }
