@@ -1,0 +1,29 @@
+{
+  "name": "saber-uri",
+  "version": "1.0.6",
+  "description": "URI处理",
+  "main": "main",
+  "maintainers": [
+    {
+      "name": "treelite",
+      "email": "c.xinle@gmail.com"
+    }
+  ],
+  "license": "BSD",
+  "repository": "git://github.com/ecomfe/saber-uri.git",
+  "bugs": "https://github.com/ecomfe/saber-uri/issues",
+  "dependencies": {
+    "saber-lang": "~1.0.0"
+  },
+  "devDependencies": {
+    "phantomjs": "^1.9.16"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "doc",
+    "demo"
+  ]
+}
