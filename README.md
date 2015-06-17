@@ -1,7 +1,7 @@
 saber-uri
 ===
 
-![Bower version](https://img.shields.io/bower/v/saber-uri.svg?style=flat-square) [![Build Status](https://img.shields.io/travis/ecomfe/saber-uri.svg?style=flat-square)](https://travis-ci.org/ecomfe/saber-uri) [![License](https://img.shields.io/npm/l/saber-uri.svg?style=flat-square)](./LICENSE) [![EFE Mobile Team](https://img.shields.io/badge/EFE-Mobile_Team-blue.svg?style=flat-square)](http://efe.baidu.com)
+![Bower version](https://img.shields.io/bower/v/saber-uri.svg?style=flat-square) [![Build Status](https://img.shields.io/travis/ecomfe/saber-uri.svg?style=flat-square)](https://travis-ci.org/ecomfe/saber-uri) [![License](https://img.shields.io/github/license/ecomfe/saber-uri?style=flat-square)](./LICENSE) [![EFE Mobile Team](https://img.shields.io/badge/EFE-Mobile_Team-blue.svg?style=flat-square)](http://efe.baidu.com)
 
 `URI`处理
 
