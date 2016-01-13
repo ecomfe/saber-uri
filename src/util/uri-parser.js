@@ -47,7 +47,7 @@ define(function (require) {
             /^([^@]+@)?([^:]+)(:\d+)?$/,
             function ($0, userInfo, host, port) {
                 if (userInfo) {
-                    userInfo = userInfo.substring(0, userInfo.legnth - 1);
+                    userInfo = userInfo.slice(0, -1);
                     userInfo = userInfo.split(':');
                     res.username = userInfo[0];
                     res.password = userInfo[1];
