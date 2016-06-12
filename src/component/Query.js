@@ -60,7 +60,7 @@ define(function (require) {
         }
 
         a = a.slice(0);
-        a = a.slice(0);
+        b = b.slice(0);
         a.sort();
         b.sort();
 
